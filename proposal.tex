@@ -4,6 +4,8 @@
 \usepackage{tabularx}
 \usepackage{fontawesome}
 \usepackage{enumitem}
+\usepackage{float}
+\restylefloat{table}
 \usepackage{placeins}
 \renewcommand\tabularxcolumn[1]{m{#1}}% for vertical centering text in X column
 \newcolumntype{b}{X|}
@@ -49,6 +51,8 @@
 
 \newpage
 
+\pagenumbering{arabic} 
+
 \begin{itemize}
     \item \textbf{Short Project Name:} BioBuddy
     
@@ -86,9 +90,18 @@
         \hline
         \end{tabularx} \\
     
-    % \FloatBarrier
-    % \item \textbf{Timeline:} (see below)  \\ 
-    \begin{table}[]
+    \item \textbf{Anticipated Problems:} 
+    \begin{itemize}
+        \item Insufficient data
+        \item Under-reporting risk
+        \item Over-reporting risk
+        \item Scope of project being too big for the given time frame
+    \end{itemize}
+    
+    
+    \newpage
+    \item \textbf{Timeline:}\\ \\
+    \begin{table}[H]
         \centering
         \begin{tabularx}{\linewidth}{  |p{\dimexpr.15\linewidth-2\tabcolsep-1.3333\arrayrulewidth}% column 1
         |p{\dimexpr.425\linewidth-2\tabcolsep-1.3333\arrayrulewidth}% column 2
@@ -151,20 +164,13 @@
         \hline
         \end{tabularx} \\
     \end{table}
-    \item \textbf{Anticipated Problems:} 
-    \begin{itemize}
-        \item Insufficient data
-        \item Under-reporting risk
-        \item Over-reporting risk
-        \item Scope of project being too big for the given time frame
-    \end{itemize}
     \item \textbf{Detailed Anticipated Results:}  
     \begin{itemize}
         \item Accurate risk assessment of user condition based on provided symptoms 
         \item An intuitive interface that easily communicates the threat of SARS-CoV-2 to a user
     \end{itemize}
 
-    \item \textbf{Timeline:} (see below)  \\ \\
+
     
     
 \end{itemize}
