@@ -1,8 +1,9 @@
 <!-- src/components/TitleScreen.vue -->
 
 <template>
-    <div>
+    <div class="title">
         <h1>Title Screen</h1>
+        <el-button type="primary">Start</el-button>
     </div>
 </template>
 

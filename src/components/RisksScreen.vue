@@ -1,4 +1,4 @@
-<!-- src/components/RiskFactorsScreen.vue -->
+<!-- src/components/RisksScreen.vue -->
 
 <template>
     <div>
