@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # covid_calculator
 
 # Proposal
