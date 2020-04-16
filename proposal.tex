@@ -1,0 +1,187 @@
+\documentclass{article}
+\usepackage{geometry}[margin=.75in]
+\usepackage[utf8]{inputenc}
+\usepackage{tabularx}
+\usepackage{fontawesome}
+\usepackage{enumitem}
+\usepackage{float}
+\restylefloat{table}
+\usepackage{placeins}
+\renewcommand\tabularxcolumn[1]{m{#1}}% for vertical centering text in X column
+\newcolumntype{b}{X|}
+\newcolumntype{s}{>{\hsize=.5\hsize}X|}
+
+\newcommand{\heading}[1]{\multicolumn{1}{c}{#1}}
+
+%Includes "References" in the table of contents
+\usepackage[nottoc]{tocbibind}
+
+\begin{titlepage}
+    \title{CMPT 340 Project Proposal --- Team Bio Boys (G20)}
+    \author {
+      Ali Arshad\\
+      \texttt{aaa117@sfu.ca}\\
+      \texttt{301303746}
+      \and
+      Nick Chubb\\
+      \texttt{nchubb@sfu.ca}\\
+      \texttt{301287896}
+      \and
+      Michael Huang\\
+      \texttt{cha110@sfu.ca}\\
+      \texttt{301287055}
+      \and
+      Sina Khalili\\
+      \texttt{khalili@sfu.ca}\\
+      \texttt{301308609}
+      \and
+      Logan Militzer\\
+      \texttt{lmilitze@sfu.ca}\\
+      \texttt{301316352}
+    }
+    \date{\emph{\vfill{March 30 2020}}}
+\end{titlepage}
+
+% https://canvas.sfu.ca/courses/50546/pages/course-project
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+
+\newpage
+
+\pagenumbering{arabic} 
+
+\begin{itemize}
+    \item \textbf{Short Project Name:} BioBuddy
+    
+    \item \textbf{Project Title:} An AI driven chat-bot to assess susceptibility to certain diseases, focusing primarily on SARS-CoV-2. 
+    
+    \item \textbf{Project Motivation:} The driving motivation behind this project is the increasing spread of the SARS-CoV-2 virus. This new pandemic has caused panic and paranoia across the globe. BioBuddy hopes to educate and raise awareness to the general population as well as becoming a useful tool to assess the risk of people who may have the novel Coronavirus.
+    
+    \item \textbf{General Project Goals:} In this project we will be developing a rudimentary risk assessment interface. Through the incorporation of AI technology and efficient search algorithms, the interface would be capable of gathering information about an individual’s conditions as well as their timeline of symptoms to make an assessment on if SARS-CoV-2 is the likely cause of illness. Based on the percentage likelihood of the assessment, our application will then recommend possible courses of action based on past cases as well as expert opinion.  
+    
+    \item \textbf{Project Steps:}
+    \begin{itemize}
+    \item Acquire and process the data
+    \item Create the decision tree 
+    \item Create some way of presenting the output 
+    \item Implement interface to a chatbot front-end 
+    \item Host web app with cloud services
+    \end{itemize}
+    
+    \item \textbf{Team Member Duties:} \\ \\
+        \begin{tabularx}{\linewidth}{
+        |p{\dimexpr.333333\linewidth-2\tabcolsep-1.3333\arrayrulewidth}% column 1
+        |p{\dimexpr.666666\linewidth-2\tabcolsep-1.3333\arrayrulewidth}|}
+        \hline
+        \textbf{Name} & \textbf{Duties} \\
+        \hline
+        Ali Arshad & Front-end Development \\
+        \hline
+        Nick Chubb & Research, Back-end \\ 
+        \hline
+        Michael Huang & Research, Back-end \\
+        \hline
+        Sina Khalili &  Back-end Development\\
+        \hline
+        Logan Militzer & Research, Decision Tree, Front-end Support \\
+        \hline
+        \end{tabularx} \\
+    
+    \item \textbf{Anticipated Problems:} 
+    \begin{itemize}
+        \item Insufficient data
+        \item Under-reporting risk
+        \item Over-reporting risk
+        \item Scope of project being too big for the given time frame
+    \end{itemize}
+    
+    
+    \newpage
+    \item \textbf{Timeline:}\\ \\
+    \begin{table}[H]
+        \centering
+        \begin{tabularx}{\linewidth}{  |p{\dimexpr.15\linewidth-2\tabcolsep-1.3333\arrayrulewidth}% column 1
+        |p{\dimexpr.425\linewidth-2\tabcolsep-1.3333\arrayrulewidth}% column 2
+        |p{\dimexpr.425\linewidth-2\tabcolsep-1.3333\arrayrulewidth}|% column 3
+          }
+        \hline
+        \textbf{Timeline} & \textbf{Goals} & \textbf{Sub-goals} \\
+        \hline
+        Week 1 
+        & 
+        \begin{itemize}[leftmargin=*]
+            \item[-] Make project proposal 
+            \item[-] Learn language and tools to be used  
+        \end{itemize} 
+        & 
+        \begin{itemize}[leftmargin=*] 
+            \item[-]Designate roles and project structure
+        \end{itemize}    
+        \\
+        \hline
+        Week 2 
+        & 
+        \begin{itemize}[leftmargin=*] 
+            \item[-] Acquire data
+            \item[-] Process data
+            \item[-] Create front-end and back-end
+        \end{itemize} 
+        & 
+        \begin{itemize}[leftmargin=*] 
+            \item[-] Complete background research on relative topics
+            \item[-] Select main algorithms
+        \end{itemize}        
+        \\
+        
+        \hline
+        Week 3 
+        & 
+        \begin{itemize}[leftmargin=*] 
+            \item[-] Implement decision tree
+            \item[-] Integrate of project components
+        \end{itemize}
+        & 
+        \begin{itemize}[leftmargin=*] 
+        \item[-] Create project report
+        \end{itemize}
+        \\
+        
+        \hline
+        Week 4 
+        & 
+        \begin{itemize}[leftmargin=*] 
+            \item[-] Finalize project report
+            \item[-] Finish front-end and back-end
+        \end{itemize}
+        &
+        \begin{itemize}[leftmargin=*] 
+        \end{itemize}
+        \\
+        
+        \hline
+        \end{tabularx} \\
+    \end{table}
+    \item \textbf{Detailed Anticipated Results:}  
+    \begin{itemize}
+        \item Accurate risk assessment of user condition based on provided symptoms 
+        \item An intuitive interface that easily communicates the threat of SARS-CoV-2 to a user
+    \end{itemize}
+
+
+    
+    
+\end{itemize}
+
+%Sets the bibliography style to UNSRT and imports the 
+%bibliography file "samples.bib".
+
+% https://docs.google.com/document/d/1r8_JOr_qxVy-o20WT1vwGJ4qfyvmiMzbZjsTwM_EDTw/edit
+\bibliographystyle{unsrt}
+\bibliography{refs}
+\nocite{*}
+
+\end{document}
+
