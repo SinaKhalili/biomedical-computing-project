@@ -1,16 +1,25 @@
 <template>
   <div id="app">
     <TitleScreen />
+    <SymptomsScreen />
+    <RisksScreen />
+    <ResultsScreen />
   </div>
 </template>
 
 <script>
 import TitleScreen from './components/TitleScreen.vue'
+import SymptomsScreen from './components/SymptomsScreen.vue'
+import RisksScreen from './components/RisksScreen.vue'
+import ResultsScreen from './components/ResultsScreen.vue'
 
 export default {
   name: 'app',
   components: {
-    TitleScreen
+    TitleScreen,
+    SymptomsScreen,
+    RisksScreen,
+    ResultsScreen
   }
 }
 </script>
