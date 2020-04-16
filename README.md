@@ -1,6 +1,6 @@
 # covid_calculator
 
-# Proposal
+## Proposal
 * As a [pdf](proposal.pdf) :notebook:
 * As [TeX source](proposal.tex) :thinking:
 
