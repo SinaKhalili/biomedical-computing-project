@@ -7,7 +7,7 @@
             <a :href="ali_url">Ali</a>, 
             <a :href="logan_url">Logan</a>, 
             <a :href="michael_url">Michael</a>, 
-        and <a :href="nick_url">Nick </a>
+        and <a :href="nick_url">Nick</a>
         </div>
     </el-footer>
 </template>
