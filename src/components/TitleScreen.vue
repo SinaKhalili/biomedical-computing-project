@@ -9,7 +9,7 @@
                 DISCLAIMER: we are not doctors please don't sue us.
             </i>
         </p>
-        <el-button type="primary">Start</el-button>
+        <el-button type="primary" id="start-button">Start</el-button>
     </div>
 </template>
 
@@ -20,5 +20,7 @@ export default {
 </script>
 
 <style scoped>
-
+#start-button {
+    font-size: 28px;
+}
 </style>

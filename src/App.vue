@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <TitleScreen />
-    <SymptomsScreen />
-    <RisksScreen />
-    <ResultsScreen />
+    <SymptomsScreen v-show="hide"/>
+    <RisksScreen v-show="hide"/>
+    <ResultsScreen v-show="hide"/>
   </div>
 </template>
 
