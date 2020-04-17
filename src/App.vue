@@ -4,6 +4,7 @@
     <SymptomsScreen v-show="hide"/>
     <RisksScreen v-show="hide"/>
     <ResultsScreen v-show="hide"/>
+    <Footer />
   </div>
 </template>
 
@@ -12,6 +13,7 @@ import TitleScreen from './components/TitleScreen.vue'
 import SymptomsScreen from './components/SymptomsScreen.vue'
 import RisksScreen from './components/RisksScreen.vue'
 import ResultsScreen from './components/ResultsScreen.vue'
+import Footer from './components/Footer.vue'
 
 export default {
   name: 'app',
@@ -19,7 +21,8 @@ export default {
     TitleScreen,
     SymptomsScreen,
     RisksScreen,
-    ResultsScreen
+    ResultsScreen,
+    Footer
   }
 }
 </script>
