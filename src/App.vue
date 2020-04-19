@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+<<<<<<< HEAD
     <SymptomsScreen
     v-on:next="nextScreen"
     v-on:back="backScreen"
@@ -14,6 +15,14 @@
     <TitleScreen
     v-on:next="nextScreen"
     v-else/>
+=======
+    <el-main id="main">
+      <TitleScreen v-show="false" />
+      <SymptomsScreen v-show="false" />
+      <RisksScreen v-show="false" />
+      <ResultsScreen v-show="true" />
+    </el-main>
+>>>>>>> 8ffbcf2... finished UI'
     <Footer />
   </div>
 </template>
