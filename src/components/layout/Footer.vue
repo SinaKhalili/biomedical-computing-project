@@ -1,6 +1,6 @@
 <template>
     <el-footer>
-        <div> Made with 💖 </div>
+        <div> Made with 💖</div>
         <div>
         By
             <a :href="sina_url">Sina</a>, 

@@ -1,8 +1,8 @@
 <!-- src/components/TitleScreen.vue -->
 
 <template>
-    <div>
-        <h1>    🦠 COVID Calculator 😷</h1>
+    <div class="title">
+        <h1>🦠 BioBuddy - the COVID Calculator 😷</h1>
         <h2>Info about the app goes here</h2>
         <p>
             <i>
