@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <TitleScreen :is="currentComponent" v-show="!currentComponent"/>
+    <TitleScreen v-show="false" />
     <SymptomsScreen v-show="true" />
     <RisksScreen v-show="false" />
     <ResultsScreen v-show="false" />
