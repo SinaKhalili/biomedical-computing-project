@@ -1,7 +1,7 @@
 <!-- src/components/ResultsScreen.vue -->
 
 <template>
-    <div>
+    <div id="results-screen">
         <h1>Results Screen</h1>
     </div>
 </template>

@@ -1,9 +1,9 @@
 <template>
   <div id="app">
-    <TitleScreen />
-    <SymptomsScreen v-show="hide"/>
-    <RisksScreen v-show="hide"/>
-    <ResultsScreen v-show="hide"/>
+    <TitleScreen :is="currentComponent" v-show="!currentComponent"/>
+    <SymptomsScreen v-show="true" />
+    <RisksScreen v-show="false" />
+    <ResultsScreen v-show="false" />
     <Footer />
   </div>
 </template>
@@ -23,6 +23,16 @@ export default {
     RisksScreen,
     ResultsScreen,
     Footer
+  },
+  data(){
+    return {
+      symptoms: [ ]
+    }
+  },
+  methods: {
+    startButtonClick(){
+      this.SymptomsScreen
+    }
   }
 }
 </script>
@@ -34,6 +44,8 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  position: absolute;
+  width: 100%;
+  height: 100%;
 }
 </style>
