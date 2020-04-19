@@ -2,21 +2,37 @@
 
 <template>
     <div id="symptoms-screen">
-        <h1>Symptoms Screen</h1>
+        <h1>Select your Symptoms</h1>
         <el-form>
             <el-form-item>
-                <el-checkbox border>Fever</el-checkbox>
-                <el-checkbox border>Dry Cough</el-checkbox>
-                <el-checkbox border>Fatigue</el-checkbox>
-                <el-checkbox border>Shortness of Breath</el-checkbox>
-                <el-checkbox border>Dry Cough</el-checkbox>
-                <el-checkbox border>Aches and Pains</el-checkbox>
-                <el-checkbox border>Sore Throat</el-checkbox>
-                <el-checkbox border>Headache</el-checkbox>
-                <el-checkbox border>Chills</el-checkbox>
-                <el-checkbox border>Nausea</el-checkbox>
-                <el-checkbox border>Nasal Congestion</el-checkbox>
-                <el-checkbox border>Diarrhea</el-checkbox>
+                <div id="table-container">
+                    <table>
+                        <tr>
+                            <th><el-checkbox class="check" border>Fever</el-checkbox></th>
+                            <th><el-checkbox class="check" border>Dry Cough</el-checkbox></th>
+                        </tr>
+                        <tr>
+                            <th><el-checkbox class="check" border>Fatigue</el-checkbox></th>
+                            <th><el-checkbox class="check" border>Shortness of Breath</el-checkbox></th>
+                        </tr>
+                        <tr>
+                            <th><el-checkbox class="check" border>Dry Cough</el-checkbox></th>
+                            <th><el-checkbox class="check" border>Aches and Pains</el-checkbox></th>
+                        </tr>
+                        <tr>
+                            <th><el-checkbox class="check" border>Sore Throat</el-checkbox></th>
+                            <th><el-checkbox class="check" border>Headache</el-checkbox></th>
+                        </tr>
+                        <tr>
+                            <th><el-checkbox class="check" border>Chills</el-checkbox></th>
+                            <th><el-checkbox class="check" border>Nausea</el-checkbox></th>
+                        </tr>
+                        <tr>
+                            <th><el-checkbox class="check" border>Nasal Congestion</el-checkbox></th>
+                            <th><el-checkbox class="check" border>Diarrhea</el-checkbox></th>
+                        </tr>
+                    </table>
+                </div>
             </el-form-item>
         </el-form>
 
@@ -31,7 +47,21 @@ export default {
 </script>
 
 <style scoped>
-#symptoms-screen{
-    height: 85%;
+#table-container {
+    width: 100%;
+    display: block;
+    text-align: center;
 }
+table {
+    display: inline-block;
+}
+th {
+    text-align: left;
+    width: 250px;
+}
+.check {
+    width: 200px;
+    margin: 5px;
+}
+
 </style>

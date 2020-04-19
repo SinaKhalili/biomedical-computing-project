@@ -1,9 +1,11 @@
 <template>
   <div id="app">
-    <TitleScreen v-show="false" />
-    <SymptomsScreen v-show="true" />
-    <RisksScreen v-show="false" />
-    <ResultsScreen v-show="false" />
+    <el-main id="main">
+      <TitleScreen v-show="false" />
+      <SymptomsScreen v-show="true" />
+      <RisksScreen v-show="false" />
+      <ResultsScreen v-show="false" />
+    </el-main>
     <Footer />
   </div>
 </template>
@@ -47,5 +49,8 @@ export default {
   position: absolute;
   width: 100%;
   height: 100%;
+}
+#main {
+  height: 85%;
 }
 </style>
