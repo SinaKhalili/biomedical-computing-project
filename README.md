@@ -6,6 +6,7 @@
 
 ## Project Architecture
 * The project's backend API is hosted [on heroku]('https://biomedical-computing.herokuapp.com/')
+* The project's backend :peach:  https://github.com/SinaKhalili/biomedical-computing-project-backend
 
 ## Project setup
 ```bash
