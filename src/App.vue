@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <TitleScreen />
-    <SymptomsScreen v-show="hide"/>
+    <SymptomsScreen />
     <RisksScreen v-show="hide"/>
     <ResultsScreen v-show="hide"/>
     <Footer />
