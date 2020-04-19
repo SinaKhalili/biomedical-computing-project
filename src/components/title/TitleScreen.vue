@@ -1,7 +1,7 @@
 <!-- src/components/TitleScreen.vue -->
 
 <template>
-    <div class="title">
+    <div>
         <h1>    🦠 COVID Calculator 😷</h1>
         <h2>Info about the app goes here</h2>
         <p>
@@ -9,13 +9,13 @@
                 DISCLAIMER: we are not doctors please don't sue us.
             </i>
         </p>
-        <el-button type="primary" id="start-button">Start</el-button>
+        <el-button type="primary" id="start-button" v-on:click="$emit('next')">Start</el-button>
     </div>
 </template>
 
 <script>
 export default {
-    
+    name: 'home',
 }
 </script>
 

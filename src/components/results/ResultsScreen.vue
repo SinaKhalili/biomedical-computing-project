@@ -1,9 +1,9 @@
 <!-- src/components/ResultsScreen.vue -->
 
 <template>
-    <div id="results-screen">
+    <div>
         <h1>Results Screen</h1>
-         <el-button
+        <el-button
         type="warning"
         @click="analyze"
         round>Assess my risk</el-button>
@@ -13,6 +13,9 @@
                 {{res.risk}}
             </div>
         </div>
+        <div>
+            <el-button type="primary" id="restart-button" v-on:click="$emit('reset')">Restart</el-button>
+        </div>
     </div>
 </template>
 
@@ -20,6 +23,7 @@
 import axios from 'axios';
 
 export default {
+    name: 'results',
     data() {
         return {
             res: '🤔',
@@ -49,5 +53,7 @@ export default {
 </script>
 
 <style scoped>
-
+#restart-button {
+    margin-top: 5%;
+}
 </style>

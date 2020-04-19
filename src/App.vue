@@ -1,37 +1,64 @@
 <template>
   <div id="app">
-    <TitleScreen :is="currentComponent" v-show="!currentComponent"/>
-    <SymptomsScreen v-show="true" />
-    <RisksScreen v-show="false" />
-    <ResultsScreen v-show="false" />
+    <SymptomsScreen
+    v-on:next="nextScreen"
+    v-on:back="backScreen"
+    v-if="currentScreen===screens.SymptomsScreen"/>
+    <FactorsScreen
+    v-on:next="nextScreen"
+    v-on:back="backScreen"
+    v-else-if="currentScreen===screens.FactorsScreen"/>
+    <ResultsScreen
+    v-on:reset="resetScreen"
+    v-else-if="currentScreen===screens.ResultsScreen"/>
+    <TitleScreen
+    v-on:next="nextScreen"
+    v-else/>
     <Footer />
   </div>
 </template>
 
 <script>
-import TitleScreen from './components/TitleScreen.vue'
-import SymptomsScreen from './components/SymptomsScreen.vue'
-import RisksScreen from './components/RisksScreen.vue'
-import ResultsScreen from './components/ResultsScreen.vue'
-import Footer from './components/Footer.vue'
+import TitleScreen from './components/title/TitleScreen.vue'
+import SymptomsScreen from './components/symptoms/SymptomsScreen.vue'
+import FactorsScreen from './components/factors/FactorsScreen.vue'
+import ResultsScreen from './components/results/ResultsScreen.vue'
+import Footer from './components/layout/Footer.vue'
 
 export default {
   name: 'app',
   components: {
     TitleScreen,
     SymptomsScreen,
-    RisksScreen,
+    FactorsScreen,
     ResultsScreen,
-    Footer
+    Footer,
   },
-  data(){
+  data() {
     return {
-      symptoms: [ ]
+      currentScreen: TitleScreen.name,
+      screens: {
+        TitleScreen: TitleScreen.name,
+        SymptomsScreen: SymptomsScreen.name,
+        FactorsScreen: FactorsScreen.name,
+        ResultsScreen: ResultsScreen.name,
+      },
+      symptoms: [],
     }
   },
   methods: {
-    startButtonClick(){
-      this.SymptomsScreen
+    nextScreen() {
+      var screenList = Object.values(this.screens);
+      var currentIndex = screenList.findIndex((screen) => screen === this.currentScreen);
+      this.currentScreen = screenList[currentIndex+1];
+    },
+    backScreen() {
+      var screenList = Object.values(this.screens);
+      var currentIndex = screenList.findIndex((screen) => screen === this.currentScreen);
+      this.currentScreen = screenList[currentIndex-1];
+    },
+    resetScreen() {
+      this.currentScreen = TitleScreen.name;
     }
   }
 }
