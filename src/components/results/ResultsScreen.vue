@@ -33,11 +33,11 @@ export default {
     data() {
         return {
             res: '🤔',
-            fakedata: { 'hey': 'there'},
             predict: false,
             loading: false,
             computed: false,
             value: 0,
+            fakeprovince: 'BC',
         }
     },
     methods: {
@@ -45,8 +45,9 @@ export default {
             this.predict = true
             this.loading = true
             this.computed = false
+            let url = 'https://biomedical-computing.herokuapp.com/analyze/location/' + this.fakeprovince
             axios
-                .post('https://biomedical-computing.herokuapp.com/analyze', this.fakedata)
+                .get(url)
                 .then(response => {
                     console.log(response.data)
                     this.res = response.data
