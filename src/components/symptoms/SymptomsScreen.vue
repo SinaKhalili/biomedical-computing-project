@@ -7,30 +7,32 @@
             <el-form-item>
                 <div id="table-container">
                     <table>
-                        <tr>
-                            <th><el-checkbox class="check" border>Fever</el-checkbox></th>
-                            <th><el-checkbox class="check" border>Dry Cough</el-checkbox></th>
-                        </tr>
-                        <tr>
-                            <th><el-checkbox class="check" border>Fatigue</el-checkbox></th>
-                            <th><el-checkbox class="check" border>Shortness of Breath</el-checkbox></th>
-                        </tr>
-                        <tr>
-                            <th><el-checkbox class="check" border>Dry Cough</el-checkbox></th>
-                            <th><el-checkbox class="check" border>Aches and Pains</el-checkbox></th>
-                        </tr>
-                        <tr>
-                            <th><el-checkbox class="check" border>Sore Throat</el-checkbox></th>
-                            <th><el-checkbox class="check" border>Headache</el-checkbox></th>
-                        </tr>
-                        <tr>
-                            <th><el-checkbox class="check" border>Chills</el-checkbox></th>
-                            <th><el-checkbox class="check" border>Nausea</el-checkbox></th>
-                        </tr>
-                        <tr>
-                            <th><el-checkbox class="check" border>Nasal Congestion</el-checkbox></th>
-                            <th><el-checkbox class="check" border>Diarrhea</el-checkbox></th>
-                        </tr>
+                        <el-checkbox-group v-model='symptomsGroup'>
+                            <tr>
+                                <th><el-checkbox class="check" border label="Fever"></el-checkbox></th>
+                                <th><el-checkbox class="check" border label="Dry Cough"></el-checkbox></th>
+                            </tr>
+                            <tr>
+                                <th><el-checkbox class="check" border label="Fatigue"></el-checkbox></th>
+                                <th><el-checkbox class="check" border label="Shortness of Breath"></el-checkbox></th>
+                            </tr>
+                            <tr>
+                                <th><el-checkbox class="check" border label="Wet Cough"></el-checkbox></th>
+                                <th><el-checkbox class="check" border label="Aches and Pains"></el-checkbox></th>
+                            </tr>
+                            <tr>
+                                <th><el-checkbox class="check" border label="Sore Throat"></el-checkbox></th>
+                                <th><el-checkbox class="check" border label="Headache"></el-checkbox></th>
+                            </tr>
+                            <tr>
+                                <th><el-checkbox class="check" border label="Chills"></el-checkbox></th>
+                                <th><el-checkbox class="check" border label="Nausea"></el-checkbox></th>
+                            </tr>
+                            <tr>
+                                <th><el-checkbox class="check" border label="Nasal Congestion"></el-checkbox></th>
+                                <th><el-checkbox class="check" border label="Diarrhea"></el-checkbox></th>
+                            </tr>
+                        </el-checkbox-group>
                     </table>
                 </div>
             </el-form-item>
@@ -42,7 +44,12 @@
 
 <script>
 export default {
-    
+    name: 'symptoms',
+    data() {
+        return {
+            symptomsGroup: []
+        }
+    }
 }
 </script>
 

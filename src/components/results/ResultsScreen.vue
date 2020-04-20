@@ -10,11 +10,13 @@
         <div v-show="predict">
             <h3>We predict... 🔍</h3>
             <div v-loading="loading">
-                <i v-show="predict">Your chances of getting COVID-19 is</i>
+                <div v-show="computed">
+                <i>Your chances of getting COVID-19 is</i>
                 <h1>{{value}}%</h1>
                 <transition name="slide-fade">
                     <i v-show="value === res.risk">You're gonna die.</i>
                 </transition>
+                </div>
             </div>
         </div>
         <div>
@@ -34,6 +36,7 @@ export default {
             fakedata: { 'hey': 'there'},
             predict: false,
             loading: false,
+            computed: false,
             value: 0,
         }
     },
@@ -41,11 +44,13 @@ export default {
         analyze() {
             this.predict = true
             this.loading = true
+            this.computed = false
             axios
                 .post('https://biomedical-computing.herokuapp.com/analyze', this.fakedata)
                 .then(response => {
                     console.log(response.data)
                     this.res = response.data
+                    this.computed = true
                     this.loading = false
                     this.value = 0;
                     this.increment()
@@ -60,10 +65,10 @@ export default {
                 if (this.value < this.res.risk) {
                     setTimeout(
                         () => {
-                            this.value++;
-                            this.increment();
+                            this.value++
+                            this.increment()
                         }, 
-                        Math.exp((this.value/this.res.risk)*5));
+                        Math.exp((this.value/this.res.risk)*5))
                 }
             }
         }
@@ -72,7 +77,7 @@ export default {
 
 <style scoped>
 #restart-button {
-    margin-top: 5%;
+    margin-top: 15px;
 }
 .slide-fade-enter-active {
     transition: all 10s ease;

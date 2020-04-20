@@ -1,19 +1,19 @@
 <template>
   <div id="app">
     <SymptomsScreen
-    v-on:next="nextScreen"
-    v-on:back="backScreen"
-    v-if="currentScreen===screens.SymptomsScreen"/>
+      v-on:next="nextScreen"
+      v-on:back="backScreen"
+      v-if="currentScreen===screens.SymptomsScreen"/>
     <FactorsScreen
-    v-on:next="nextScreen"
-    v-on:back="backScreen"
-    v-else-if="currentScreen===screens.FactorsScreen"/>
+      v-on:next="nextScreen"
+      v-on:back="backScreen"
+      v-else-if="currentScreen===screens.FactorsScreen"/>
     <ResultsScreen
-    v-on:reset="resetScreen"
-    v-else-if="currentScreen===screens.ResultsScreen"/>
+      v-on:reset="resetScreen"
+      v-else-if="currentScreen===screens.ResultsScreen"/>
     <TitleScreen
-    v-on:next="nextScreen"
-    v-else/>
+      v-on:next="nextScreen"
+      v-else/>
     <Footer />
   </div>
 </template>
@@ -48,17 +48,17 @@ export default {
   },
   methods: {
     nextScreen() {
-      var screenList = Object.values(this.screens);
-      var currentIndex = screenList.findIndex((screen) => screen === this.currentScreen);
-      this.currentScreen = screenList[currentIndex+1];
+      var screenList = Object.values(this.screens)
+      var currentIndex = screenList.findIndex((screen) => screen === this.currentScreen)
+      this.currentScreen = screenList[currentIndex+1]
     },
     backScreen() {
-      var screenList = Object.values(this.screens);
-      var currentIndex = screenList.findIndex((screen) => screen === this.currentScreen);
-      this.currentScreen = screenList[currentIndex-1];
+      var screenList = Object.values(this.screens)
+      var currentIndex = screenList.findIndex((screen) => screen === this.currentScreen)
+      this.currentScreen = screenList[currentIndex-1]
     },
     resetScreen() {
-      this.currentScreen = TitleScreen.name;
+      this.currentScreen = TitleScreen.name
     }
   }
 }
@@ -74,5 +74,8 @@ export default {
   position: absolute;
   width: 100%;
   height: 100%;
+}
+.el-footer {
+  margin-top: 5%;
 }
 </style>
