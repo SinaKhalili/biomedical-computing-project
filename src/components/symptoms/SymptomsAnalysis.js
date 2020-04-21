@@ -53,7 +53,6 @@ const POPULATION_WITH_FLU_PER_DAY = POPULATION * PERCENT_POPULATION_WITH_FLU_PER
 // BC = ~6%
 const PERCENTAGE_CHANCE_COVID = COVID_CASES[province] / POPULATION_WITH_FLU_PER_DAY;
 
-
 /* 
     The rest of the algorithm uses this base rate to calculate how much more likely your symptoms are to be 
     COVID instead of the Flu
@@ -66,10 +65,11 @@ const freq = {
     COMMON: 3,
     FAIRLY_COMMON: 4,
     USUAL: 5,
-    EXTREME: 6
+    EXTREME: 10
 };
 
 // reflects the percentage of diagnosed COVID cases that
+// SOURCE: 
 const COVID_RATES = {
 
     'diarrhea': freq.RARELY,
@@ -116,7 +116,7 @@ const FLU_RATES = {
     'fever': freq.USUAL,
     'aches': freq.USUAL,
 
-    //extreme, only in COVID
+    //extreme, not symptoms in Flu
     'severe chest pain': 0,
     'severe difficulty breathing': 0,
     'difficulty waking up': 0,
@@ -125,7 +125,7 @@ const FLU_RATES = {
 };
 
 // Sum up the symptom frequencies
-var sumCOV = 0;
+var sumCov = 0;
 var sumFlu = 0;
 symptomsGroup.array.forEach(element => {
 
@@ -138,11 +138,8 @@ symptomsGroup.array.forEach(element => {
 const TOTAL_COVID = sumCov;
 const TOTAL_FLU = sumFlu;
 
+// Final total ratio of COVID symptom totals over Flu symptom totals
 const TOTAL_RATIO = TOTAL_COVID / TOTAL_FLU;
 
-
-
-
-
-// how much does it increase your chance if you have severe symptoms?
-
+// Two independent events so use multiplicity theory to get the final percentage likelihood of COVID
+const FINAL_ANSWER = (PERCENTAGE_CHANCE_COVID * TOTAL_RATIO) * 100; //percent
