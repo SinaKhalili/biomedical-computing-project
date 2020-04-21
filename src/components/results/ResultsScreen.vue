@@ -11,10 +11,12 @@
             <h3>We predict... 🔍</h3>
             <div v-loading="loading">
                 <div v-show="computed">
-                <i>Your chances of getting COVID-19 is</i>
-                <h1>{{value}}%</h1>
+                <i>Your chances of having COVID-19 is...</i>
+                <h1>{{(value).toFixed(1)}}%</h1>
+                <i>Your risk of developing a severe case if you already have it is...</i>
+                <h1>{{(severityValue).toFixed(1)}}%</h1>
                 <transition name="slide-fade">
-                    <i v-show="value === res.risk">You're gonna die.</i>
+                    <h2><i v-show="value >= risk">{{giveAdvice()}}</i></h2>
                 </transition>
                 </div>
             </div>
@@ -27,6 +29,7 @@
 
 <script>
 import axios from 'axios';
+import {getFinalCovidPercentChance} from './SymptomsAnalysis.js';
 
 export default {
     name: 'results',
@@ -39,7 +42,10 @@ export default {
             predict: false,
             loading: false,
             computed: false,
-            value: 0,
+            severity: null,
+            risk: null,
+            value: 0.0,
+            severityValue: 0.0,
             fakeprovince: 'BC',
         }
     },
@@ -52,12 +58,22 @@ export default {
             axios
                 .get(url)
                 .then(response => {
-                    console.log(response.data)
                     this.res = response.data
                     this.computed = true
                     this.loading = false
+                    this.risk = getFinalCovidPercentChance(this.statistics.province, response.data.num_infected, this.statistics.symptoms, this.statistics.averageInteractions);
+                    this.severity = this.statistics.ageSeverityPercent + this.statistics.conditionPercent
+                    console.log(this.risk)
                     this.value = 0;
-                    this.increment()
+                    this.severityValue = 0;
+                    if (this.risk >= 100) {
+                        this.risk = 100
+                    }
+                    if (this.severity >= 100) {
+                        this.severity = 100
+                    }
+                    this.incrementRisk()
+                    this.incrementSeverity()
                 })
                 .catch(error => {
                     console.log(error)
@@ -65,16 +81,35 @@ export default {
                     this.loading = false
                 })
         },
-        increment() {
-                if (this.value < this.res.risk) {
-                    setTimeout(
-                        () => {
-                            this.value++
-                            this.increment()
-                        }, 
-                        Math.exp((this.value/this.res.risk)*5))
-                }
+        incrementRisk() {
+            if (this.value <= this.risk) {
+                setTimeout(
+                    () => {
+                        this.value = this.value + 0.1
+                        this.incrementRisk()
+                    }, 
+                    Math.exp((this.value/this.risk)/10))
+             }
+        },
+        incrementSeverity() {
+            if (this.severityValue <= this.severity) {
+                setTimeout(
+                    () => {
+                        this.severityValue = this.severityValue + 0.1
+                        this.incrementSeverity()
+                    }, 
+                    Math.exp((this.severityValue/this.severity)/10))
             }
+        },
+        giveAdvice() {
+            if(this.risk <= 0.1){
+                return 'You don\'t have to self-isolate, remember to maintiain social distance!';
+            }else if(this.risk > 20){
+                return 'You should self-isolate and call 811 or speak to a healthcare professional.';
+            }else if(this.risk > 0.1){
+                return 'You should self-isolate for 14 days until you no longer show symptoms.';
+            }
+        }
         }
     }
 </script>
@@ -90,4 +125,4 @@ export default {
     transform: translateX(10px);
     opacity: 0;
 }
-</style>
+</style>U

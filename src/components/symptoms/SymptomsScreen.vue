@@ -9,16 +9,24 @@
                     <table>
                         <el-checkbox-group v-model='symptomsGroup'>
                             <tr>
+                                <th><el-checkbox class="check severe" border label="Severe Difficulty Breathing"></el-checkbox></th>
+                                <th><el-checkbox class="check severe" border label="Severe Chest Pain"></el-checkbox></th>
+                            </tr>
+                            <tr>
+                                <th><el-checkbox class="check severe" border label="Difficulty Waking Up"></el-checkbox></th>
+                                <th><el-checkbox class="check severe" border label="Feeling Confused"></el-checkbox></th>
+                            </tr>
+                            <tr>
                                 <th><el-checkbox class="check" border label="Fever"></el-checkbox></th>
-                                <th><el-checkbox class="check" border label="Dry Cough"></el-checkbox></th>
+                                <th><el-checkbox class="check" border label="Cough"></el-checkbox></th>
                             </tr>
                             <tr>
                                 <th><el-checkbox class="check" border label="Fatigue"></el-checkbox></th>
                                 <th><el-checkbox class="check" border label="Shortness of Breath"></el-checkbox></th>
                             </tr>
                             <tr>
-                                <th><el-checkbox class="check" border label="Wet Cough"></el-checkbox></th>
                                 <th><el-checkbox class="check" border label="Aches and Pains"></el-checkbox></th>
+                                <th><el-checkbox class="check" border label="Diarrhea"></el-checkbox></th>
                             </tr>
                             <tr>
                                 <th><el-checkbox class="check" border label="Sore Throat"></el-checkbox></th>
@@ -30,7 +38,6 @@
                             </tr>
                             <tr>
                                 <th><el-checkbox class="check" border label="Nasal Congestion"></el-checkbox></th>
-                                <th><el-checkbox class="check" border label="Diarrhea"></el-checkbox></th>
                             </tr>
                         </el-checkbox-group>
                     </table>
@@ -58,6 +65,7 @@ export default {
             this.$emit('next', statistics);
         }
     }
+
 }
 </script>
 
@@ -75,8 +83,11 @@ th {
     width: 250px;
 }
 .check {
-    width: 200px;
+    width: 250px;
     margin: 5px;
+}
+.severe {
+    background: #fff1f1;
 }
 
 </style>
