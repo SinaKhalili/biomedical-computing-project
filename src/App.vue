@@ -10,6 +10,7 @@
       v-else-if="currentScreen===screens.FactorsScreen"/>
     <ResultsScreen
       v-on:reset="resetScreen"
+      v-bind:statistics="statistics"
       v-else-if="currentScreen===screens.ResultsScreen"/>
     <TitleScreen
       v-on:next="nextScreen"
@@ -43,11 +44,14 @@ export default {
         FactorsScreen: FactorsScreen.name,
         ResultsScreen: ResultsScreen.name,
       },
-      symptoms: [],
+      statistics: {},
     }
   },
   methods: {
-    nextScreen() {
+    nextScreen(statistics) {
+      if (statistics != undefined) {
+        this.statistics = {...this.statistics, ...statistics};
+      }
       var screenList = Object.values(this.screens)
       var currentIndex = screenList.findIndex((screen) => screen === this.currentScreen)
       this.currentScreen = screenList[currentIndex+1]
@@ -58,6 +62,7 @@ export default {
       this.currentScreen = screenList[currentIndex-1]
     },
     resetScreen() {
+      this.statistics = {}
       this.currentScreen = TitleScreen.name
     }
   }

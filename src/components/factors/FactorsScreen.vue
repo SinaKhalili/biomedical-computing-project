@@ -11,7 +11,7 @@
                 </div>
                 <h5>Province</h5>
                 <div class="item">
-                    <el-select v-model="chosenProvince" placeholder="Select">
+                    <el-select v-model="chosenProvince" placeholder="British Columbia">
                         <el-option
                             v-for="province in provinces"
                             :key="province.value"
@@ -20,7 +20,7 @@
                         </el-option>
                     </el-select>
                 </div>
-                <h5>Average Number of People Interacted with per Day</h5>
+                <h5>Number of Different People You've had Extended Interactions with in the Last 2 Week</h5>
                 <div class="item">
                     <el-input-number v-model="averageInteractions" controls-position="right" :min="0"></el-input-number>
                 </div>
@@ -37,19 +37,18 @@
                             </tr>
                             <tr>
                                 <th><el-checkbox class="check" border label="Chronic Renal Disease"></el-checkbox></th>
-                                <th><el-checkbox class="check" border label="Aches and Pains"></el-checkbox></th>
+                                <th><el-checkbox class="check" border label="Chronic Liver Disease"></el-checkbox></th>
                             </tr>
                             <tr>
                                 <th><el-checkbox class="check" border label="Pregnant"></el-checkbox></th>
                                 <th><el-checkbox class="check" border label="Neurologic Disorder"></el-checkbox></th>
                             </tr>
                             <tr>
-                                <th><el-checkbox class="check" border label="Chronic Liver Disease"></el-checkbox></th>
-                                <th><el-checkbox class="check" border label="Other Chronic Disease"></el-checkbox></th>
-                            </tr>
-                            <tr>
                                 <th><el-checkbox class="check" border label="Former Smoker"></el-checkbox></th>
                                 <th><el-checkbox class="check" border label="Current Smoker"></el-checkbox></th>
+                            </tr>
+                            <tr>
+                                <th><el-checkbox class="check" border label="Other Chronic Disease"></el-checkbox></th>
                             </tr>
                         </el-checkbox-group>
                     </table>
@@ -57,17 +56,19 @@
             </el-form-item>
         </el-form>
             <el-button type="secondary" id="back-button" v-on:click="$emit('back')">Back</el-button>
-            <el-button type="primary" id="next-button" v-on:click="$emit('next')">Next</el-button>
+            <el-button type="primary" id="next-button" v-on:click="nextPage">Next</el-button>
     </div>
 </template>
 
 <script>
+import {getConditionPercent, getAgeSeverityPercent} from './FactorAnalysis.js';
+
 export default {
     name: 'factors',
     data () {
         return {
             age: 0,
-            chosenProvince: '',
+            chosenProvince: 'BC',
             averageInteractions: 0,
             conditions: [],
             provinces: [
@@ -124,6 +125,17 @@ export default {
                     label: 'Nunavut',
                 },
             ]
+        }
+    },
+    methods: {
+        nextPage() {
+            const statistics = {
+                province: this.chosenProvince,
+                averageInteractions: this.averageInteractions,
+                ageSeverityPercent: getAgeSeverityPercent(this.age),
+                conditionPercent: getConditionPercent(this.conditions),
+            }
+            this.$emit('next', statistics)
         }
     }
 }

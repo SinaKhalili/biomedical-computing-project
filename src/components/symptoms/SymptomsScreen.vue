@@ -38,7 +38,7 @@
             </el-form-item>
         </el-form>
         <el-button type="secondary" id="back-button" v-on:click="$emit('back')">Back</el-button>
-        <el-button type="primary" id="next-button" v-on:click="$emit('next')">Next</el-button>
+        <el-button type="primary" id="next-button" v-on:click="nextPage">Next</el-button>
     </div>
 </template>
 
@@ -48,6 +48,14 @@ export default {
     data() {
         return {
             symptomsGroup: []
+        }
+    },
+    methods: {
+        nextPage() {
+            const statistics = {
+                symptoms: this.symptomsGroup
+            } 
+            this.$emit('next', statistics);
         }
     }
 }

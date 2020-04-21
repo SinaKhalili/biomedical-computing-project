@@ -30,6 +30,9 @@ import axios from 'axios';
 
 export default {
     name: 'results',
+    props: [
+        'statistics'
+    ],
     data() {
         return {
             res: '🤔',
@@ -45,7 +48,7 @@ export default {
             this.predict = true
             this.loading = true
             this.computed = false
-            let url = 'https://biomedical-computing.herokuapp.com/analyze/location/' + this.fakeprovince
+            let url = 'https://biomedical-computing.herokuapp.com/analyze/location/' + this.statistics.province
             axios
                 .get(url)
                 .then(response => {
