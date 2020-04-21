@@ -129,13 +129,13 @@ export default {
     },
     methods: {
         nextPage() {
-            const shit = {
+            const statistics = {
                 province: this.chosenProvince,
                 averageInteractions: this.averageInteractions,
                 ageSeverityPercent: getAgeSeverityPercent(this.age),
                 conditionPercent: getConditionPercent(this.conditions),
             }
-            this.$emit('next', shit)
+            this.$emit('next', statistics)
         }
     }
 }

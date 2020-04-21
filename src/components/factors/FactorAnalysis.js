@@ -1,3 +1,4 @@
+// SOURCE: https://www.cdc.gov/mmwr/volumes/69/wr/mm6913e2.htm
 export function getConditionPercent(conditions) {
     let MULTIPLE = 37.6;
     let DIATBETES = 10.9;
@@ -41,6 +42,7 @@ export function getConditionPercent(conditions) {
     }
 }
 
+// SOURCE: https://www.cdc.gov/mmwr/volumes/69/wr/mm6912e2.htm
 export function getAgeSeverityPercent(age) {
     if (age < 20) {
         return 1.6;
