@@ -18,8 +18,6 @@ const POPULATION_PROVINCE = {
     'NU': 39097
 };
 
-var symptomsArray = ['Aches and Pains', 'Fever', 'Dry Cough'];
-
 /**
  * Returns the percent chance that a patient demonstrating Flu-like symptoms may 
  * have COVID based on geographical location and the current amount of cases in their region
@@ -62,7 +60,7 @@ function getPercentageCovidChanceLocation(province, casesInProvince){
  * returns the ratio of the frequency of more COVID distinct symptoms vs. Flu symptoms.
  * Depends on which symptoms the user selects on the symptoms page
  */
-function getCovidChanceSymptomsMultiplier() {
+function getCovidChanceSymptomsMultiplier(symptomsArray) {
 
     // if no symptoms selected, return .01
 
@@ -111,6 +109,7 @@ function getCovidChanceSymptomsMultiplier() {
 
         'Diarrhea': freq.RARELY,
         'Nausea': freq.RARELY,
+        'Shortness of Breath': freq.RARELY,
 
         'Nasal Congestion': freq.SOMETIMES,
         'Sore Throat': freq.SOMETIMES,
@@ -126,10 +125,10 @@ function getCovidChanceSymptomsMultiplier() {
         'Aches and Pains': freq.USUAL,
 
         //extreme, not symptoms in Flu
-        'Severe Chest Pain': 1,
-        'Severe Difficulty Breathing': 1,
-        'Difficulty Waking Up': 1,
-        'Feeling Confused': 1
+        'Severe Chest Pain': 3,
+        'Severe Difficulty Breathing': 3,
+        'Difficulty Waking Up': 3,
+        'Feeling Confused': 3
         
     };
 
@@ -159,7 +158,7 @@ function getCovidChanceSymptomsMultiplier() {
  * @param {Int} casesInProvince - Estimated number of COVID cases in province
  * @param {String[]} symptomsArray - array of symptoms from the user
  */
-function getFinalCovidPercentChance(province, casesInProvince, symptomsArray) {
+export function getFinalCovidPercentChance(province, casesInProvince, symptomsArray) {
 
     if(symptomsArray.length == 0) {
         return casesInProvince / POPULATION_PROVINCE[province];
@@ -178,5 +177,3 @@ function getFinalCovidPercentChance(province, casesInProvince, symptomsArray) {
 
     return FINAL_ANSWER;
 }
-
-console.log(getFinalCovidPercentChance('BC', 1400, symptomsArray));

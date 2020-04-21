@@ -57,8 +57,8 @@ export default {
                     this.res = response.data
                     this.computed = true
                     this.loading = false
-                    this.risk = getFinalCovidPercentChance(this.statistics.province, this.res.data.num_infected, this.statistics.symptoms)
-                    this.value = 0.;
+                    this.risk = getFinalCovidPercentChance(this.statistics.province, response.data.num_infected, this.statistics.symptoms)
+                    this.value = 0;
                     this.increment()
                 })
                 .catch(error => {
