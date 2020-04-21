@@ -59,75 +59,88 @@ const PERCENTAGE_CHANCE_COVID = COVID_CASES[province] / POPULATION_WITH_FLU_PER_
     COVID instead of the Flu
 */
 
+// Table of frequency values
+const freq = {
+    RARELY: 1,
+    SOMETIMES: 2,
+    COMMON: 3,
+    FAIRLY_COMMON: 4,
+    USUAL: 5,
+    EXTREME: 6
+};
 
 // reflects the percentage of diagnosed COVID cases that
 const COVID_RATES = {
-        'rarely':
-        {
-            'diarrhea': .04,
-            'nasal congestion': .05,
-            'nausea': .05
 
-        },
-        'sometimes': 
-        {   
-            'chills': .14,
-            'headache': .14,
-            'sore throat': .14,
-            'aches': .15
-        },
-        'common': 
-        {
-            'shortness of breath': .19
+    'diarrhea': freq.RARELY,
+    'nasal congestion': freq.RARELY,
+    'nausea': freq.RARELY,
 
-        },
-        'fairly common': 
-        {
-            'wet cough': .33,
-            'fatigue': .38
-        },
-        'usual': 
-        {
-            'dry cough': .68,
-            'fever': .88
-        }
+    'chills': freq.SOMETIMES,
+    'headache': freq.SOMETIMES,
+    'sore throat': freq.SOMETIMES,
+    'aches': freq.SOMETIMES,
+
+    'shortness of breath': freq.COMMON,
+
+
+    'wet cough': freq.FAIRLY_COMMON,
+    'fatigue': freq.FAIRLY_COMMON,
+  
+    'dry cough': freq.USUAL,
+    'fever': freq.USUAL,
+
+    //extreme
+    'severe chest pain': freq.EXTREME,
+    'severe difficulty breathing': freq.EXTREME,
+    'difficulty waking up': freq.EXTREME,
+    'feeling confused': freq.EXTREME
+
 };
 
 const FLU_RATES = {
-    'rarely':
-    {
-        'diarrhea': 1,
-        'nausea': 1
 
-    },
-    'sometimes': 
-    {   
-        'nasal congestion': 1,
-        'sore throat': .14
-    },
-    'common': 
-    {
-        'headache': .14,
-        'dry cough': .33,
-        'wet cough': .60
+    'diarrhea': freq.RARELY,
+    'nausea': freq.RARELY,
 
-    },
-    'fairly common': 
-    {
-        'chills': .6
-    },
-    'usual': 
-    {
-        'fatigue': .68,
-        'fever': .80,
-        'aches': .80
-    }
+    'nasal congestion': freq.SOMETIMES,
+    'sore throat': freq.SOMETIMES,
+ 
+    'headache': freq.COMMON,
+    'dry cough': freq.COMMON,
+    'wet cough': freq.COMMON,
+
+    'chills': freq.FAIRLY_COMMON,
+
+    'fatigue': freq.USUAL,
+    'fever': freq.USUAL,
+    'aches': freq.USUAL,
+
+    //extreme, only in COVID
+    'severe chest pain': 0,
+    'severe difficulty breathing': 0,
+    'difficulty waking up': 0,
+    'feeling confused': 0
+    
 };
 
-const SEVERE_CHEST_PAIN = 0;
-const SEVERE_DIFFICULTY_BREATHING = 0;
-const DIFFICULTY_WAKING_UP = 0;
-const FEELING_CONFUSED = 0;
+// Sum up the symptom frequencies
+var sumCOV = 0;
+var sumFlu = 0;
+normalSymptomsGroup.array.forEach(element => {
+
+    sumCov += COVID_RATES[element];
+    sumFlu += FLU_RATES[element];
+
+});
+
+// Now we compare totals for Flu and COVID
+const TOTAL_COVID = sumCov;
+const TOTAL_FLU = sumFlu;
+
+const TOTAL_RATIO = TOTAL_COVID / TOTAL_FLU;
+
+
 
 // how much does it increase your chance if you have severe symptoms?
 

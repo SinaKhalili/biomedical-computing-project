@@ -55,7 +55,8 @@ export default {
     name: 'symptoms',
     data() {
         return {
-            symptomsGroup: []
+            normalSymptomsGroup: [],
+            severeSymptomsGroup: []
         }
     }
 
