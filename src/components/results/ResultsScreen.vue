@@ -14,7 +14,7 @@
                 <i>Your chances of getting COVID-19 is</i>
                 <h1>{{value}}%</h1>
                 <transition name="slide-fade">
-                    <i v-show="value === res.risk">You're gonna die.</i>
+                    <i v-show="value === risk">You're gonna die.</i>
                 </transition>
                 </div>
             </div>
@@ -27,6 +27,7 @@
 
 <script>
 import axios from 'axios';
+import {getFinalCovidPercentChance} from './SymptomsAnalysis.js';
 
 export default {
     name: 'results',
@@ -39,7 +40,8 @@ export default {
             predict: false,
             loading: false,
             computed: false,
-            value: 0,
+            risk: null,
+            value: 0.0,
             fakeprovince: 'BC',
         }
     },
@@ -52,11 +54,11 @@ export default {
             axios
                 .get(url)
                 .then(response => {
-                    console.log(response.data)
                     this.res = response.data
                     this.computed = true
                     this.loading = false
-                    this.value = 0;
+                    this.risk = getFinalCovidPercentChance(this.statistics.province, this.res.data.num_infected, this.statistics.symptoms)
+                    this.value = 0.;
                     this.increment()
                 })
                 .catch(error => {
@@ -66,13 +68,13 @@ export default {
                 })
         },
         increment() {
-                if (this.value < this.res.risk) {
+                if (this.value < this.risk) {
                     setTimeout(
                         () => {
-                            this.value++
+                            this.value += 0.1
                             this.increment()
                         }, 
-                        Math.exp((this.value/this.res.risk)*5))
+                        Math.exp((this.value/this.risk)/2))
                 }
             }
         }

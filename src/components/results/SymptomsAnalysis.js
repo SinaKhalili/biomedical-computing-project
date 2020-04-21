@@ -1,6 +1,6 @@
 // Info for the analysis of user input symptoms
 
-// As of 2020 census data
+// As of 2020 census data 
 // SOURCE: https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1710000901
 const POPULATION_PROVINCE = {
     'ON': 14711827,
@@ -18,16 +18,14 @@ const POPULATION_PROVINCE = {
     'NU': 39097
 };
 
-const COVID_CASES = {
-    'BC': 1600
-};
+var symptomsArray = ['Aches and Pains', 'Fever', 'Dry Cough'];
 
 /**
  * Returns the percent chance that a patient demonstrating Flu-like symptoms may 
  * have COVID based on geographical location and the current amount of cases in their region
  * @param {String} province - Eg. 'BC'
  */
-function getPercentageCovidChanceLocation(province){
+function getPercentageCovidChanceLocation(province, casesInProvince){
 
     // get the population of the selected province
     const POPULATION = POPULATION_PROVINCE[province];
@@ -45,7 +43,7 @@ function getPercentageCovidChanceLocation(province){
     const FLU_CYCLES_PER_SEASON = DAYS_PER_FLU_SEASON / 6;
     
     // Dividing the percent of the population that will have the flu on in a year by the number of cycles
-    // gives us the approximate percentage of the population that has the flu at any given point in time during
+    // gives us the approximate percentage of the population that has the flu at any average day during
     // Flu season.  This calculation assumes even distribution across Flu season which is not reflected in real life,
     // with December/January having the peak.
     const PERCENT_POPULATION_WITH_FLU_PER_DAY = PERCENT_POPULATION_FLU_PER_YEAR / FLU_CYCLES_PER_SEASON;  // = 0.005 or 0.5%
@@ -55,22 +53,19 @@ function getPercentageCovidChanceLocation(province){
 
     // Calculates the percentage of COVID cases to estimated Flu cases
     // BC = ~6%
-    const PERCENTAGE_CHANCE_COVID = COVID_CASES[province] / POPULATION_WITH_FLU_PER_DAY;
+    const PERCENTAGE_CHANCE_COVID = casesInProvince / POPULATION_WITH_FLU_PER_DAY;
 
     return PERCENTAGE_CHANCE_COVID;
-
 }
 
 /**
  * returns the ratio of the frequency of more COVID distinct symptoms vs. Flu symptoms.
  * Depends on which symptoms the user selects on the symptoms page
  */
-function getRatioCovidChanceSymptoms(){
+function getCovidChanceSymptomsMultiplier() {
 
     // if no symptoms selected, return .01
-    if(symptomsGroup.length == 0){
-        return .01;
-    }
+
 
     // Table of frequency values
     // Extreme symptoms are more heavily weighted since they are significantly more indicative of COVID over the Flu
@@ -80,68 +75,68 @@ function getRatioCovidChanceSymptoms(){
         COMMON: 3,
         FAIRLY_COMMON: 4,
         USUAL: 5,
-        EXTREME: 25
+        EXTREME: 15
     };
 
     // SOURCE: http://www.bccdc.ca/health-info/diseases-conditions/covid-19/data
     const COVID_RATES = {
 
-        'diarrhea': freq.RARELY,
-        'nasal congestion': freq.RARELY,
-        'nausea': freq.RARELY,
+        'Diarrhea': freq.RARELY,
+        'Nasal Congestion': freq.RARELY,
+        'Nausea': freq.RARELY,
 
-        'chills': freq.SOMETIMES,
-        'headache': freq.SOMETIMES,
-        'sore throat': freq.SOMETIMES,
-        'aches': freq.SOMETIMES,
+        'Chills': freq.SOMETIMES,
+        'Headache': freq.SOMETIMES,
+        'Sore Throat': freq.SOMETIMES,
+        'Aches and Pains': freq.SOMETIMES,
 
-        'shortness of breath': freq.COMMON,
+        'Shortness of Breath': freq.COMMON,
 
-        'wet cough': freq.FAIRLY_COMMON,
-        'fatigue': freq.FAIRLY_COMMON,
+        'Wet Cough': freq.FAIRLY_COMMON,
+        'Fatigue': freq.FAIRLY_COMMON,
     
-        'dry cough': freq.USUAL,
-        'fever': freq.USUAL,
+        'Dry Cough': freq.USUAL,
+        'Fever': freq.USUAL,
 
         //extreme
-        'severe chest pain': freq.EXTREME,
-        'severe difficulty breathing': freq.EXTREME,
-        'difficulty waking up': freq.EXTREME,
-        'feeling confused': freq.EXTREME
+        'Severe Chest Pain': freq.EXTREME,
+        'Severe Difficulty Breathing': freq.EXTREME,
+        'Difficulty Waking Up': freq.EXTREME,
+        'Feeling Confused': freq.EXTREME
 
     };
 
     // SOURCE: https://www.cdc.gov/flu/symptoms/symptoms.htm
     const FLU_RATES = {
 
-        'diarrhea': freq.RARELY,
-        'nausea': freq.RARELY,
+        'Diarrhea': freq.RARELY,
+        'Nausea': freq.RARELY,
 
-        'nasal congestion': freq.SOMETIMES,
-        'sore throat': freq.SOMETIMES,
+        'Nasal Congestion': freq.SOMETIMES,
+        'Sore Throat': freq.SOMETIMES,
     
-        'headache': freq.COMMON,
-        'dry cough': freq.COMMON,
-        'wet cough': freq.COMMON,
+        'Headache': freq.COMMON,
+        'Dry Cough': freq.COMMON,
+        'Wet Cough': freq.COMMON,
 
-        'chills': freq.FAIRLY_COMMON,
+        'Chills': freq.FAIRLY_COMMON,
 
-        'fatigue': freq.USUAL,
-        'fever': freq.USUAL,
-        'aches': freq.USUAL,
+        'Fatigue': freq.USUAL,
+        'Fever': freq.USUAL,
+        'Aches and Pains': freq.USUAL,
 
         //extreme, not symptoms in Flu
-        'severe chest pain': 0,
-        'severe difficulty breathing': 0,
-        'difficulty waking up': 0,
-        'feeling confused': 0
+        'Severe Chest Pain': 1,
+        'Severe Difficulty Breathing': 1,
+        'Difficulty Waking Up': 1,
+        'Feeling Confused': 1
         
     };
 
     // Sum up the symptom frequencies
     var sumCov = 0;
     var sumFlu = 0;
-    symptomsGroup.forEach(element => {
+    symptomsArray.forEach(element => {
 
         sumCov += COVID_RATES[element];
         sumFlu += FLU_RATES[element];
@@ -161,15 +156,27 @@ function getRatioCovidChanceSymptoms(){
 /**
  * Gets the percentage chance that the user has COVID vs. Flu based on their symptoms and geographical location
  * @param {String} province - Eg. 'BC'
+ * @param {Int} casesInProvince - Estimated number of COVID cases in province
+ * @param {String[]} symptomsArray - array of symptoms from the user
  */
-export function getFinalCovidPercentChance(province){
+function getFinalCovidPercentChance(province, casesInProvince, symptomsArray) {
 
-    const PERCENTAGE_CHANCE_COVID_BY_LOCATION = getPercentageCovidChanceLocation(province);
+    if(symptomsArray.length == 0) {
+        return casesInProvince / POPULATION_PROVINCE[province];
+    }
 
-    const RATIO_COVID_SYMPTOMS_TO_FLU = getRatioCovidChanceSymptoms();
+    const PERCENTAGE_CHANCE_COVID_BY_LOCATION = getPercentageCovidChanceLocation(province, casesInProvince);
+
+    const COVID_SYMPTOMS_TO_FLU_MULTIPLIER = getCovidChanceSymptomsMultiplier(symptomsArray); //multiplier
+
+    console.log(symptomsArray);
+    console.log('location: ' + PERCENTAGE_CHANCE_COVID_BY_LOCATION);
+    console.log('symptoms: ' + COVID_SYMPTOMS_TO_FLU_MULTIPLIER);
 
     // Two independent events so use multiplicity theory to get the final percentage likelihood of COVID
-    const FINAL_ANSWER = (PERCENTAGE_CHANCE_COVID_BY_LOCATION * RATIO_COVID_SYMPTOMS_TO_FLU) * 100; //percent
+    const FINAL_ANSWER = (PERCENTAGE_CHANCE_COVID_BY_LOCATION * COVID_SYMPTOMS_TO_FLU_MULTIPLIER) * 100; //percent
 
     return FINAL_ANSWER;
 }
+
+console.log(getFinalCovidPercentChance('BC', 1400, symptomsArray));
