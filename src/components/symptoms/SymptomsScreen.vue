@@ -18,14 +18,13 @@
                             </tr>
                             <tr>
                                 <th><el-checkbox class="check" border label="Fever"></el-checkbox></th>
-                                <th><el-checkbox class="check" border label="Dry Cough"></el-checkbox></th>
+                                <th><el-checkbox class="check" border label="Cough"></el-checkbox></th>
                             </tr>
                             <tr>
                                 <th><el-checkbox class="check" border label="Fatigue"></el-checkbox></th>
                                 <th><el-checkbox class="check" border label="Shortness of Breath"></el-checkbox></th>
                             </tr>
                             <tr>
-                                <th><el-checkbox class="check" border label="Wet Cough"></el-checkbox></th>
                                 <th><el-checkbox class="check" border label="Aches and Pains"></el-checkbox></th>
                             </tr>
                             <tr>

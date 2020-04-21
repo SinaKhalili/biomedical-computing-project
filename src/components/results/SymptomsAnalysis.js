@@ -67,68 +67,68 @@ function getCovidChanceSymptomsMultiplier(symptomsArray) {
 
     // Table of frequency values
     // Extreme symptoms are more heavily weighted since they are significantly more indicative of COVID over the Flu
-    const freq = {
+    /*const freq = {
         RARELY: 1,
         SOMETIMES: 2,
         COMMON: 3,
         FAIRLY_COMMON: 4,
         USUAL: 5,
-        EXTREME: 15
+        EXTREME: 25
     };
+    */
 
     // SOURCE: http://www.bccdc.ca/health-info/diseases-conditions/covid-19/data
     const COVID_RATES = {
 
-        'Diarrhea': freq.RARELY,
-        'Nasal Congestion': freq.RARELY,
-        'Nausea': freq.RARELY,
+        'Diarrhea': 26.7,
+        'Nasal Congestion': 16.1,
+        'Nausea': 24.4,
 
-        'Chills': freq.SOMETIMES,
-        'Headache': freq.SOMETIMES,
-        'Sore Throat': freq.SOMETIMES,
-        'Aches and Pains': freq.SOMETIMES,
+        'Chills': 85.0,
+        'Headache': 16.1,
+        'Sore Throat': 17.8,
+        'Aches and Pains': 34.4,
 
-        'Shortness of Breath': freq.COMMON,
+        'Shortness of Breath': 80.0,
 
-        'Wet Cough': freq.FAIRLY_COMMON,
-        'Fatigue': freq.FAIRLY_COMMON,
+        'Cough': 86.1,
+        'Fatigue': 6.1,
     
-        'Dry Cough': freq.USUAL,
-        'Fever': freq.USUAL,
+        'Fever': 85.0,
 
         //extreme
-        'Severe Chest Pain': freq.EXTREME,
-        'Severe Difficulty Breathing': freq.EXTREME,
-        'Difficulty Waking Up': freq.EXTREME,
-        'Feeling Confused': freq.EXTREME
+        'Severe Chest Pain': 100,
+        'Severe Difficulty Breathing': 100,
+        'Difficulty Waking Up': 100,
+        'Feeling Confused': 100
 
     };
 
     // SOURCE: https://www.cdc.gov/flu/symptoms/symptoms.htm
+    // Estimated percentages based on equivalence classes of 15%
     const FLU_RATES = {
 
-        'Diarrhea': freq.RARELY,
-        'Nausea': freq.RARELY,
-        'Shortness of Breath': freq.RARELY,
+        'Diarrhea': 15.0,
+        'Nausea': 15.0,
+        'Shortness of Breath': 15.0,
 
-        'Nasal Congestion': freq.SOMETIMES,
-        'Sore Throat': freq.SOMETIMES,
+        'Nasal Congestion': 30.0,
+        'Sore Throat': 30.0,
     
-        'Headache': freq.COMMON,
-        'Dry Cough': freq.COMMON,
-        'Wet Cough': freq.COMMON,
+        'Headache': 50.0,
+        'Cough': 50.0,
 
-        'Chills': freq.FAIRLY_COMMON,
+        'Chills': 75.0,
 
-        'Fatigue': freq.USUAL,
-        'Fever': freq.USUAL,
-        'Aches and Pains': freq.USUAL,
+        'Fatigue': 90.0,
+        'Fever': 90.0,
+        'Aches and Pains': 90.0,
 
         //extreme, not symptoms in Flu
-        'Severe Chest Pain': 3,
-        'Severe Difficulty Breathing': 3,
-        'Difficulty Waking Up': 3,
-        'Feeling Confused': 3
+        'Severe Chest Pain': 10,
+        'Severe Difficulty Breathing': 10,
+        'Difficulty Waking Up': 10,
+        'Feeling Confused': 10
         
     };
 
@@ -146,8 +146,11 @@ function getCovidChanceSymptomsMultiplier(symptomsArray) {
     const TOTAL_COVID = sumCov;
     const TOTAL_FLU = sumFlu;
 
-    // Final total ratio of COVID symptom totals over Flu symptom totals
-    const TOTAL_RATIO = TOTAL_COVID / TOTAL_FLU;
+    const DIFF = TOTAL_COVID - TOTAL_FLU;
+
+    // Final difference of COVID symptom frequencies over total frequencies
+    // f(x)=x/(x+100)
+    const TOTAL_RATIO = Math.pow(Math.E, (DIFF/(TOTAL_COVID + TOTAL_FLU)));
 
     return TOTAL_RATIO;
 }
