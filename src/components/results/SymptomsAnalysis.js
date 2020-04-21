@@ -22,7 +22,13 @@ const COVID_CASES = {
     'BC': 1600
 };
 
+var symptomsGroup = ['aches'];
 
+/**
+ * Returns the percent chance that a patient demonstrating Flu-like symptoms may 
+ * have COVID based on geographical location and the current amount of cases in their region
+ * @param {String} province - Eg. 'BC'
+ */
 function getPercentageCovidChanceLocation(province){
 
     // get the population of the selected province
@@ -57,8 +63,16 @@ function getPercentageCovidChanceLocation(province){
 
 }
 
+/**
+ * returns the ratio of the frequency of more COVID distinct symptoms vs. Flu symptoms.
+ * Depends on which symptoms the user selects on the symptoms page
+ */
+function getRatioCovidChanceSymptoms(){
 
-function getPercentageCovidChanceSymptoms(){
+    // if no symptoms selected, return .01
+    if(symptomsGroup.length == 0){
+        return .01;
+    }
 
     // Table of frequency values
     // Extreme symptoms are more heavily weighted since they are significantly more indicative of COVID over the Flu
@@ -71,8 +85,7 @@ function getPercentageCovidChanceSymptoms(){
         EXTREME: 25
     };
 
-    // reflects the percentage of diagnosed COVID cases that
-    // SOURCE: 
+    // SOURCE: http://www.bccdc.ca/health-info/diseases-conditions/covid-19/data
     const COVID_RATES = {
 
         'diarrhea': freq.RARELY,
@@ -100,6 +113,7 @@ function getPercentageCovidChanceSymptoms(){
 
     };
 
+    // SOURCE: https://www.cdc.gov/flu/symptoms/symptoms.htm
     const FLU_RATES = {
 
         'diarrhea': freq.RARELY,
@@ -126,8 +140,6 @@ function getPercentageCovidChanceSymptoms(){
         
     };
 
-    var symptomsGroup = ['aches'];
-
     // Sum up the symptom frequencies
     var sumCov = 0;
     var sumFlu = 0;
@@ -148,12 +160,15 @@ function getPercentageCovidChanceSymptoms(){
     return TOTAL_RATIO;
 }
 
-
-function getFinalCovidPercentChance(province){
+/**
+ * Gets the percentage chance that the user has COVID vs. Flu based on their symptoms and geographical location
+ * @param {String} province - Eg. 'BC'
+ */
+export function getFinalCovidPercentChance(province){
 
     const PERCENTAGE_CHANCE_COVID_BY_LOCATION = getPercentageCovidChanceLocation(province);
 
-    const RATIO_COVID_SYMPTOMS_TO_FLU = getPercentageCovidChanceSymptoms();
+    const RATIO_COVID_SYMPTOMS_TO_FLU = getRatioCovidChanceSymptoms();
 
     // Two independent events so use multiplicity theory to get the final percentage likelihood of COVID
     const FINAL_ANSWER = (PERCENTAGE_CHANCE_COVID_BY_LOCATION * RATIO_COVID_SYMPTOMS_TO_FLU) * 100; //percent
