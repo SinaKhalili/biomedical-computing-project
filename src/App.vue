@@ -54,13 +54,9 @@ export default {
       }
       var screenList = Object.values(this.screens)
       var currentIndex = screenList.findIndex((screen) => screen === this.currentScreen)
-      console.log(currentIndex)
-      console.log(this.currentScreen)
       this.currentScreen = screenList[currentIndex+1]
-      console.log(this.currentScreen)
     },
     backScreen() {
-      console.log("bad")
       var screenList = Object.values(this.screens)
       var currentIndex = screenList.findIndex((screen) => screen === this.currentScreen)
       this.currentScreen = screenList[currentIndex-1]
