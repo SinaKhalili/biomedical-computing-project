@@ -160,5 +160,3 @@ function getFinalCovidPercentChance(province){
 
     return FINAL_ANSWER;
 }
-
-console.log(getFinalCovidPercentChance('BC'));
