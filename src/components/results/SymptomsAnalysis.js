@@ -60,22 +60,7 @@ function getPercentageCovidChanceLocation(province, casesInProvince){
  * returns the ratio of the frequency of more COVID distinct symptoms vs. Flu symptoms.
  * Depends on which symptoms the user selects on the symptoms page
  */
-function getCovidChanceSymptomsMultiplier(symptomsArray) {
-
-    // if no symptoms selected, return .01
-
-
-    // Table of frequency values
-    // Extreme symptoms are more heavily weighted since they are significantly more indicative of COVID over the Flu
-    /*const freq = {
-        RARELY: 1,
-        SOMETIMES: 2,
-        COMMON: 3,
-        FAIRLY_COMMON: 4,
-        USUAL: 5,
-        EXTREME: 25
-    };
-    */
+function getCovidSymptomFreqDiff(symptomsArray) {
 
     // SOURCE: http://www.bccdc.ca/health-info/diseases-conditions/covid-19/data
     const COVID_RATES = {
@@ -97,10 +82,10 @@ function getCovidChanceSymptomsMultiplier(symptomsArray) {
         'Fever': 85.0,
 
         //extreme
-        'Severe Chest Pain': 100,
-        'Severe Difficulty Breathing': 100,
-        'Difficulty Waking Up': 100,
-        'Feeling Confused': 100
+        'Severe Chest Pain': 90,
+        'Severe Difficulty Breathing': 90,
+        'Difficulty Waking Up': 90,
+        'Feeling Confused': 90
 
     };
 
@@ -124,7 +109,7 @@ function getCovidChanceSymptomsMultiplier(symptomsArray) {
         'Fever': 90.0,
         'Aches and Pains': 90.0,
 
-        //extreme, not symptoms in Flu
+        //estimate, heavily weighted towards COVID as these are characteristic symptoms of the disease
         'Severe Chest Pain': 10,
         'Severe Difficulty Breathing': 10,
         'Difficulty Waking Up': 10,
@@ -143,16 +128,13 @@ function getCovidChanceSymptomsMultiplier(symptomsArray) {
     });
 
     // Now we compare totals for Flu and COVID
-    const TOTAL_COVID = sumCov;
-    const TOTAL_FLU = sumFlu;
+    const TOTAL_COVID = sumCov / 100;
+    const TOTAL_FLU = sumFlu / 100;
 
-    const DIFF = TOTAL_COVID - TOTAL_FLU;
+    // Difference of totals divided by sum of totals
+    const DIFF = (TOTAL_COVID - TOTAL_FLU / (TOTAL_FLU + TOTAL_COVID));
 
-    // Final difference of COVID symptom frequencies over total frequencies
-    // f(x)=x/(x+100)
-    const TOTAL_RATIO = Math.pow(Math.E, (DIFF/(TOTAL_COVID + TOTAL_FLU)));
-
-    return TOTAL_RATIO;
+    return DIFF;
 }
 
 /**
@@ -161,22 +143,21 @@ function getCovidChanceSymptomsMultiplier(symptomsArray) {
  * @param {Int} casesInProvince - Estimated number of COVID cases in province
  * @param {String[]} symptomsArray - array of symptoms from the user
  */
-export function getFinalCovidPercentChance(province, casesInProvince, symptomsArray) {
+export function getFinalCovidPercentChance(province, casesInProvince, symptomsArray, averageInteractions) {
+    
+    const INTERACTION_MODIFIER = (25*averageInteractions)/(averageInteractions + 25);
 
     if(symptomsArray.length == 0) {
-        return casesInProvince / POPULATION_PROVINCE[province];
+        return (casesInProvince / POPULATION_PROVINCE[province] * 100) + INTERACTION_MODIFIER;
     }
 
     const PERCENTAGE_CHANCE_COVID_BY_LOCATION = getPercentageCovidChanceLocation(province, casesInProvince);
+    
+    const COVID_SYMPTOM_FREQ_DIFF = getCovidSymptomFreqDiff(symptomsArray); //multiplier
 
-    const COVID_SYMPTOMS_TO_FLU_MULTIPLIER = getCovidChanceSymptomsMultiplier(symptomsArray); //multiplier
 
-    console.log(symptomsArray);
-    console.log('location: ' + PERCENTAGE_CHANCE_COVID_BY_LOCATION);
-    console.log('symptoms: ' + COVID_SYMPTOMS_TO_FLU_MULTIPLIER);
+    // Formula 1/(1 + e^{-.25x}), value will approach 1 and each symptom makes it more likely, but never passing 1
+    const FINAL_ANSWER = PERCENTAGE_CHANCE_COVID_BY_LOCATION / (PERCENTAGE_CHANCE_COVID_BY_LOCATION + Math.pow(Math.E, ( -.25 * (COVID_SYMPTOM_FREQ_DIFF + Math.sqrt(INTERACTION_MODIFIER)))));
 
-    // Two independent events so use multiplicity theory to get the final percentage likelihood of COVID
-    const FINAL_ANSWER = (PERCENTAGE_CHANCE_COVID_BY_LOCATION * COVID_SYMPTOMS_TO_FLU_MULTIPLIER) * 100; //percent
-
-    return FINAL_ANSWER;
+    return FINAL_ANSWER * 100;
 }

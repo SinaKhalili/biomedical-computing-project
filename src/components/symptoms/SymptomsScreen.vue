@@ -26,6 +26,7 @@
                             </tr>
                             <tr>
                                 <th><el-checkbox class="check" border label="Aches and Pains"></el-checkbox></th>
+                                <th><el-checkbox class="check" border label="Diarrhea"></el-checkbox></th>
                             </tr>
                             <tr>
                                 <th><el-checkbox class="check" border label="Sore Throat"></el-checkbox></th>
@@ -37,7 +38,6 @@
                             </tr>
                             <tr>
                                 <th><el-checkbox class="check" border label="Nasal Congestion"></el-checkbox></th>
-                                <th><el-checkbox class="check" border label="Diarrhea"></el-checkbox></th>
                             </tr>
                         </el-checkbox-group>
                     </table>

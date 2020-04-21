@@ -61,10 +61,17 @@ export default {
                     this.res = response.data
                     this.computed = true
                     this.loading = false
-                    this.risk = getFinalCovidPercentChance(this.statistics.province, response.data.num_infected, this.statistics.symptoms);
+                    this.risk = getFinalCovidPercentChance(this.statistics.province, response.data.num_infected, this.statistics.symptoms, this.statistics.averageInteractions);
                     this.severity = this.statistics.ageSeverityPercent + this.statistics.conditionPercent
                     console.log(this.risk)
                     this.value = 0;
+                    this.severityValue = 0;
+                    if (this.risk >= 100) {
+                        this.risk = 100
+                    }
+                    if (this.severity >= 100) {
+                        this.severity = 100
+                    }
                     this.incrementRisk()
                     this.incrementSeverity()
                 })
