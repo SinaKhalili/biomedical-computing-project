@@ -22,8 +22,6 @@ const COVID_CASES = {
     'BC': 1600
 };
 
-var symptomsGroup = ['aches'];
-
 /**
  * Returns the percent chance that a patient demonstrating Flu-like symptoms may 
  * have COVID based on geographical location and the current amount of cases in their region
