@@ -127,7 +127,7 @@ const FLU_RATES = {
 // Sum up the symptom frequencies
 var sumCOV = 0;
 var sumFlu = 0;
-normalSymptomsGroup.array.forEach(element => {
+symptomsGroup.array.forEach(element => {
 
     sumCov += COVID_RATES[element];
     sumFlu += FLU_RATES[element];
@@ -139,6 +139,8 @@ const TOTAL_COVID = sumCov;
 const TOTAL_FLU = sumFlu;
 
 const TOTAL_RATIO = TOTAL_COVID / TOTAL_FLU;
+
+
 
 
 
