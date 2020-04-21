@@ -9,6 +9,14 @@
                     <table>
                         <el-checkbox-group v-model='symptomsGroup'>
                             <tr>
+                                <th><el-checkbox class="check severe" border label="Severe Difficulty Breathing"></el-checkbox></th>
+                                <th><el-checkbox class="check severe" border label="Severe Chest Pain"></el-checkbox></th>
+                            </tr>
+                            <tr>
+                                <th><el-checkbox class="check severe" border label="Difficulty Waking Up"></el-checkbox></th>
+                                <th><el-checkbox class="check severe" border label="Feeling Confused"></el-checkbox></th>
+                            </tr>
+                            <tr>
                                 <th><el-checkbox class="check" border label="Fever"></el-checkbox></th>
                                 <th><el-checkbox class="check" border label="Dry Cough"></el-checkbox></th>
                             </tr>
@@ -50,6 +58,7 @@ export default {
             symptomsGroup: []
         }
     }
+
 }
 </script>
 
@@ -67,8 +76,11 @@ th {
     width: 250px;
 }
 .check {
-    width: 200px;
+    width: 250px;
     margin: 5px;
+}
+.severe {
+    background: #fff1f1;
 }
 
 </style>
